@@ -9,3 +9,6 @@ bundle:
 
 scan:
 	./gradlew build --scan
+
+install-depenencies:
+	pip install faker

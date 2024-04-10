@@ -1,0 +1,402 @@
+[
+    {
+        "first_name": "Kathleen",
+        "last_name": "Briggs",
+        "ssn": "120-73-8269",
+        "age": 55,
+        "gender": "Female",
+        "race": "White",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "516-489-8296",
+        "address": {
+            "street_address": "190 Carrie Freeway Suite 415",
+            "city": "Walterton",
+            "state": "Montana",
+            "zip_code": "28717"
+        }
+    },
+    {
+        "first_name": "Monique",
+        "last_name": "Parsons",
+        "ssn": "392-68-5690",
+        "age": 18,
+        "gender": "Male",
+        "race": "American Indian or Alaska Native",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "001-669-639-1212x57020",
+        "address": {
+            "street_address": "87996 Denise Row",
+            "city": "Brettbury",
+            "state": "Maryland",
+            "zip_code": "93387"
+        }
+    },
+    {
+        "first_name": "Carol",
+        "last_name": "Mcdowell",
+        "ssn": "378-80-1851",
+        "age": 21,
+        "gender": "Other",
+        "race": "Black or African American",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "(381)966-2147x7852",
+        "address": {
+            "street_address": "0681 Rojas Turnpike",
+            "city": "Gallowayland",
+            "state": "Colorado",
+            "zip_code": "84935"
+        }
+    },
+    {
+        "first_name": "Michael",
+        "last_name": "Bruce",
+        "ssn": "611-76-3648",
+        "age": 32,
+        "gender": "Other",
+        "race": "White",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "489-818-6976x97661",
+        "address": {
+            "street_address": "1379 Anderson Spurs Apt. 633",
+            "city": "Dunnland",
+            "state": "New Jersey",
+            "zip_code": "25112"
+        }
+    },
+    {
+        "first_name": "Noah",
+        "last_name": "Davis",
+        "ssn": "438-85-6088",
+        "age": 64,
+        "gender": "Male",
+        "race": "Native Hawaiian or Other Pacific Islander",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "(257)200-5826x87483",
+        "address": {
+            "street_address": "290 Ashley Radial",
+            "city": "North Christine",
+            "state": "Arizona",
+            "zip_code": "59633"
+        }
+    },
+    {
+        "first_name": "Yvonne",
+        "last_name": "Reyes",
+        "ssn": "774-75-0948",
+        "age": 37,
+        "gender": "Other",
+        "race": "Asian",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "913-914-5131x352",
+        "address": {
+            "street_address": "67386 Krueger Shore Apt. 352",
+            "city": "Markside",
+            "state": "Indiana",
+            "zip_code": "78122"
+        }
+    },
+    {
+        "first_name": "Scott",
+        "last_name": "Hill",
+        "ssn": "577-84-8638",
+        "age": 73,
+        "gender": "Other",
+        "race": "White",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "638-222-8711",
+        "address": {
+            "street_address": "8683 Turner Flat",
+            "city": "Lake Mark",
+            "state": "Hawaii",
+            "zip_code": "73529"
+        }
+    },
+    {
+        "first_name": "Jenna",
+        "last_name": "Smith",
+        "ssn": "393-84-7173",
+        "age": 35,
+        "gender": "Female",
+        "race": "Black or African American",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "001-540-568-6066x9956",
+        "address": {
+            "street_address": "996 Bell Hill",
+            "city": "Port Monica",
+            "state": "North Dakota",
+            "zip_code": "81661"
+        }
+    },
+    {
+        "first_name": "April",
+        "last_name": "Park",
+        "ssn": "076-06-2902",
+        "age": 91,
+        "gender": "Other",
+        "race": "Black or African American",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "7362889190",
+        "address": {
+            "street_address": "524 Martin Vista",
+            "city": "Port Meganhaven",
+            "state": "Montana",
+            "zip_code": "56687"
+        }
+    },
+    {
+        "first_name": "Brittany",
+        "last_name": "Johnson",
+        "ssn": "201-59-5833",
+        "age": 72,
+        "gender": "Male",
+        "race": "Black or African American",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "(304)270-7369",
+        "address": {
+            "street_address": "54214 Mcdonald Mill Apt. 667",
+            "city": "Lynnchester",
+            "state": "Kansas",
+            "zip_code": "00623"
+        }
+    },
+    {
+        "first_name": "Andrew",
+        "last_name": "Haas",
+        "ssn": "688-07-5751",
+        "age": 86,
+        "gender": "Female",
+        "race": "Black or African American",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "273-472-5463",
+        "address": {
+            "street_address": "03595 Cabrera Wells Apt. 285",
+            "city": "North Stephanie",
+            "state": "North Carolina",
+            "zip_code": "04082"
+        }
+    },
+    {
+        "first_name": "Christopher",
+        "last_name": "Velasquez",
+        "ssn": "662-17-4003",
+        "age": 80,
+        "gender": "Male",
+        "race": "American Indian or Alaska Native",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "(428)570-4075x8098",
+        "address": {
+            "street_address": "13426 Wiggins Plain Suite 229",
+            "city": "Goodmouth",
+            "state": "California",
+            "zip_code": "34247"
+        }
+    },
+    {
+        "first_name": "Jeffery",
+        "last_name": "Wise",
+        "ssn": "040-06-0154",
+        "age": 88,
+        "gender": "Male",
+        "race": "White",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "685.530.6367x77779",
+        "address": {
+            "street_address": "7828 David Islands Apt. 931",
+            "city": "East Nathan",
+            "state": "Oregon",
+            "zip_code": "02906"
+        }
+    },
+    {
+        "first_name": "Alyssa",
+        "last_name": "Garcia",
+        "ssn": "842-80-8988",
+        "age": 40,
+        "gender": "Male",
+        "race": "Asian",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "001-927-499-0619",
+        "address": {
+            "street_address": "9302 Lee Field Apt. 108",
+            "city": "East Calvinstad",
+            "state": "Louisiana",
+            "zip_code": "64602"
+        }
+    },
+    {
+        "first_name": "Jacob",
+        "last_name": "Weaver",
+        "ssn": "290-86-3212",
+        "age": 95,
+        "gender": "Male",
+        "race": "Black or African American",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "979.512.2557x2878",
+        "address": {
+            "street_address": "7518 Davis Trail",
+            "city": "East Jeremy",
+            "state": "Wisconsin",
+            "zip_code": "30493"
+        }
+    },
+    {
+        "first_name": "Andrea",
+        "last_name": "Brown",
+        "ssn": "275-23-3193",
+        "age": 38,
+        "gender": "Male",
+        "race": "Asian",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "+1-324-976-7570x69401",
+        "address": {
+            "street_address": "2963 Stephanie Circles",
+            "city": "New Dawnport",
+            "state": "New Mexico",
+            "zip_code": "48128"
+        }
+    },
+    {
+        "first_name": "Elizabeth",
+        "last_name": "Mckay",
+        "ssn": "040-66-6396",
+        "age": 46,
+        "gender": "Female",
+        "race": "White",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "627-911-2168x141",
+        "address": {
+            "street_address": "0360 Sean Keys",
+            "city": "Kellyborough",
+            "state": "South Carolina",
+            "zip_code": "27963"
+        }
+    },
+    {
+        "first_name": "Ashley",
+        "last_name": "Little",
+        "ssn": "016-69-2093",
+        "age": 77,
+        "gender": "Male",
+        "race": "Black or African American",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "325.792.2696x200",
+        "address": {
+            "street_address": "46876 Robert Junctions",
+            "city": "Lake Bradley",
+            "state": "North Dakota",
+            "zip_code": "92549"
+        }
+    },
+    {
+        "first_name": "Zachary",
+        "last_name": "Brady",
+        "ssn": "485-22-9553",
+        "age": 81,
+        "gender": "Male",
+        "race": "Black or African American",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "998.896.7400",
+        "address": {
+            "street_address": "448 Heather Locks",
+            "city": "Port Michelleland",
+            "state": "North Carolina",
+            "zip_code": "30413"
+        }
+    },
+    {
+        "first_name": "William",
+        "last_name": "Valentine",
+        "ssn": "320-42-3232",
+        "age": 21,
+        "gender": "Female",
+        "race": "Black or African American",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "734-562-8530",
+        "address": {
+            "street_address": "0781 Natasha Wall Suite 605",
+            "city": "East Jillmouth",
+            "state": "Minnesota",
+            "zip_code": "98034"
+        }
+    },
+    {
+        "first_name": "Gloria",
+        "last_name": "Romero",
+        "ssn": "335-31-2518",
+        "age": 66,
+        "gender": "Female",
+        "race": "Black or African American",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "804-640-6456x9583",
+        "address": {
+            "street_address": "41990 Bartlett Bridge",
+            "city": "South Wanda",
+            "state": "Kansas",
+            "zip_code": "00659"
+        }
+    },
+    {
+        "first_name": "Matthew",
+        "last_name": "Bailey",
+        "ssn": "465-74-4228",
+        "age": 93,
+        "gender": "Female",
+        "race": "White",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "(711)360-4762",
+        "address": {
+            "street_address": "5561 Garrett Drive",
+            "city": "Lake Donna",
+            "state": "Utah",
+            "zip_code": "68229"
+        }
+    },
+    {
+        "first_name": "Mary",
+        "last_name": "Fischer",
+        "ssn": "220-94-0499",
+        "age": 54,
+        "gender": "Male",
+        "race": "Native Hawaiian or Other Pacific Islander",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "(834)907-7935",
+        "address": {
+            "street_address": "55455 Dougherty Lakes Apt. 263",
+            "city": "Holmestown",
+            "state": "Georgia",
+            "zip_code": "51408"
+        }
+    },
+    {
+        "first_name": "Michael",
+        "last_name": "Miller",
+        "ssn": "489-04-6381",
+        "age": 40,
+        "gender": "Female",
+        "race": "White",
+        "ethnicity": "Not Hispanic or Latino",
+        "phone_number": "657.716.5937x23622",
+        "address": {
+            "street_address": "3906 White Plaza",
+            "city": "Escobarborough",
+            "state": "Michigan",
+            "zip_code": "97273"
+        }
+    },
+    {
+        "first_name": "Sherri",
+        "last_name": "Williams",
+        "ssn": "226-14-4546",
+        "age": 80,
+        "gender": "Male",
+        "race": "Asian",
+        "ethnicity": "Hispanic or Latino",
+        "phone_number": "967-673-0029",
+        "address": {
+            "street_address": "4496 Robinson Circle Apt. 853",
+            "city": "West Lindseyport",
+            "state": "Washington",
+            "zip_code": "38729"
+        }
+    }
+]
