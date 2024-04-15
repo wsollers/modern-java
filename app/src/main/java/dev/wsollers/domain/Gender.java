@@ -1,13 +1,20 @@
 package dev.wsollers.domain;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum Gender {
-  MALE ("MALE"),
-  FEMALE ("FEMALE"),
-  OTHER ("OTHER");
+  MALE ("Male"),
+  FEMALE ("Female"),
+  OTHER ("Other");
 
   public final String textValue;
 
   Gender(String textValue) {
     this.textValue = textValue;
+  }
+
+  @JsonValue
+  public String getGender() {
+    return textValue;
   }
 };

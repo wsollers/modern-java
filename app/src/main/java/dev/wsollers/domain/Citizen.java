@@ -1,15 +1,34 @@
 package dev.wsollers.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Citizen {
 
+  @JsonProperty("first_name")
   private String firstName;
+
+  @JsonProperty("last_name")
   private String lastName;
+
+  @JsonProperty("ssn")
   private String ssn;
+
+  @JsonProperty("age")
   private int age;
+
+  @JsonProperty("gender")
   private Gender gender;
+
+  @JsonProperty("race")
   private Race race;
+
+  @JsonProperty("ethnicity")
   private Ethnicity ethnicity;
+
+  @JsonProperty("phone_number")
   private String phoneNumber;
+
+  @JsonProperty("address")
   private Address address;
 
 /*

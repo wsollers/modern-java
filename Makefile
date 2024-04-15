@@ -12,3 +12,6 @@ scan:
 
 install-depenencies:
 	pip install faker
+
+show-dependencies:
+	./gradlew :app:dependencies

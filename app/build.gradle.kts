@@ -9,7 +9,8 @@ plugins {
 dependencies {
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
     implementation("com.fasterxml.jackson.core:jackson-core:2.16.1")
-    
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.16.1")
     implementation("org.apache.commons:commons-text")
     implementation(project(":utilities"))
 }
