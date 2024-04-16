@@ -13,5 +13,4 @@ public class LogFactory {
     Logger logger = getLogger(LogFactory.class);
     logger.error("Test log statement");
   }
-
 }

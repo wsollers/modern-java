@@ -7,6 +7,12 @@ run:
 bundle:
 	./gradlew build
 
+build:
+	./gradlew build
+
+clean:
+	./gradlew clean
+
 scan:
 	./gradlew build --scan
 
