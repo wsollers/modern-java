@@ -7,10 +7,12 @@ new_test_data = []
 
 for _ in range(25):
     person = {
+        "id": fake.uuid4(),
         "first_name": fake.first_name(),
         "last_name": fake.last_name(),
         "ssn": fake.ssn(),
         "age": random.randint(18, 100),
+
         "gender": random.choice(["Male", "Female", "Other"]),
         "race": random.choice(["Asian", "Black or African American", "White", "American Indian or Alaska Native", "Native Hawaiian or Other Pacific Islander"]),
         "ethnicity": random.choice(["Hispanic or Latino", "Not Hispanic or Latino"]),

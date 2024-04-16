@@ -1,9 +1,22 @@
 package dev.wsollers.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Column;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@Entity(name="Citizen")
+@Table(name="CITIZEN", schema="TODO")
 public class Citizen {
 
+  @Id
+  @JsonProperty("id")
+  @Column(name="ID", length=64, nullable=false, unique=true)
+  private String id;
+
+  @Column(name="FIRST_NAME", length=64, nullable=false, unique=false)
   @JsonProperty("first_name")
   private String firstName;
 
