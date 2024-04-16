@@ -6,3 +6,5 @@ riffs on modern Java
 [![DevSkim](https://github.com/wsollers/modern-java/actions/workflows/devskim.yml/badge.svg)](https://github.com/wsollers/modern-java/actions/workflows/devskim.yml)
 
 [![OSSAR](https://github.com/wsollers/modern-java/actions/workflows/ossar.yml/badge.svg)](https://github.com/wsollers/modern-java/actions/workflows/ossar.yml)
+
+[![OSV-Scanner](https://github.com/wsollers/modern-java/actions/workflows/osv-scanner.yml/badge.svg)](https://github.com/wsollers/modern-java/actions/workflows/osv-scanner.yml)
