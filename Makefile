@@ -24,3 +24,9 @@ postgres-run:
 
 show-dependencies:
 	./gradlew :app:dependencies
+
+wrapper:
+	./gradlew wrapper --gradle-version 7.3.3
+
+gradle-version:
+	./gradlew --version
