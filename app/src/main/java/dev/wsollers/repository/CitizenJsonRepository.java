@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class CitizenRepositoryImpl implements CitizenRepository {
+public class CitizenJsonRepository implements CitizenRepository {
 
   public static final String CITIZENS_JSON = "citizens.json";
 

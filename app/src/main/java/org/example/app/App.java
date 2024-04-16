@@ -10,7 +10,8 @@ import static org.example.utilities.StringUtils.split;
 import static org.example.app.MessageUtils.getMessage;
 
 import dev.wsollers.repository.CitizenRepository;
-import dev.wsollers.repository.CitizenRepositoryImpl;
+import dev.wsollers.repository.CitizenJsonRepository;
+import dev.wsollers.logging.LogFactory;
 
 import org.apache.commons.text.WordUtils;
 
@@ -20,7 +21,8 @@ public class App {
     tokens = split(getMessage());
     String result = join(tokens);
     System.out.println(WordUtils.capitalize(result));
-    CitizenRepository citizenRepository = new CitizenRepositoryImpl();
+    CitizenRepository citizenRepository = new CitizenJsonRepository();
     citizenRepository.getCitizens();
+    LogFactory.testLogger();
   }
 }
