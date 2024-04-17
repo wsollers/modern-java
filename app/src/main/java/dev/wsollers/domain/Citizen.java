@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -29,12 +31,15 @@ public class Citizen {
   @JsonProperty("age")
   private int age;
 
+  @Enumerated(EnumType.STRING)
   @JsonProperty("gender")
   private Gender gender;
 
+  @Enumerated(EnumType.STRING)
   @JsonProperty("race")
   private Race race;
 
+  @Enumerated(EnumType.STRING)
   @JsonProperty("ethnicity")
   private Ethnicity ethnicity;
 
