@@ -24,6 +24,9 @@ get-docker-dependencies:
 	docker pull postgres:16.2
 	# docker database admin clienti
 	docker pull dpage/pgadmin4:8.5
+
+postgres-down:
+	cd compose-postgres; docker-compose down --volumes
 	
 postgres-run:
 	cd compose-postgres; docker-compose --env-file ./secrets.env up -d

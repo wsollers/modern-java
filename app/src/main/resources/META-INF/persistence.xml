@@ -12,12 +12,10 @@
         <class>dev.wsollers.domain.Citizen</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/dbName" /> <!-- BD Mane -->
-            <property name="javax.persistence.jdbc.user" value="postgres" /> <!-- DB User -->
-            <property name="javax.persistence.jdbc.password" value="postgres" /> <!-- DB Password -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/CITIZENS" /> <!-- BD Mane -->
 
 	          <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/> <!-- DB Dialect -->
-            <property name="hibernate.hbm2ddl.auto" value="validate" /> <!-- create / create-drop / update -->
+            <property name="hibernate.hbm2ddl.auto" value="none" /> <!-- create / create-drop / update -->
             
             <property name="hibernate.show_sql" value="true" /> <!-- Show SQL in console -->
             <property name="hibernate.format_sql" value="true" /> <!-- Show SQL formatted -->
