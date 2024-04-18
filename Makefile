@@ -39,3 +39,6 @@ wrapper:
 
 gradle-version:
 	./gradlew --version
+
+generate-javadoc:
+	./gradlew :app:javadoc

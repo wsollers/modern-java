@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity(name="Address")
 @Table(name="ADDRESS", schema="CITIZENS")
-public class Address {
+public class Address extends AuditableEntity {
 
   @Id 
   @Column(name="ID", length=36, nullable=false, unique=true)

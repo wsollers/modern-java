@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity(name="Citizen")
 @Table(name="CITIZEN", schema="CITIZENS")
-public class Citizen {
+public class Citizen extends AuditableEntity {
 
   @Id
   @JsonProperty("id")
