@@ -15,6 +15,7 @@ import dev.wsollers.repository.CustomEntityManagerFactory;
 import dev.wsollers.repository.CitizenRepository;
 import dev.wsollers.repository.CitizenJsonRepository;
 import dev.wsollers.logging.LogFactory;
+import dev.wsollers.repository.QueryTester;
 
 import org.apache.commons.text.WordUtils;
 
@@ -28,5 +29,9 @@ public class App {
     citizenRepository.getCitizens();
     LogFactory.testLogger();
     EntityManager em = CustomEntityManagerFactory.getEntityManager();
+    QueryTester.testConnection();
+    QueryTester.testSqlQuery();
+    QueryTester.testQuery();
+    QueryTester.testFind();
   }
 }

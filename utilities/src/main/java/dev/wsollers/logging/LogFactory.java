@@ -12,5 +12,6 @@ public class LogFactory {
   public static void testLogger() {
     Logger logger = getLogger(LogFactory.class);
     logger.error("Test log statement");
+    logger.info("Info Test log statement");
   }
 }

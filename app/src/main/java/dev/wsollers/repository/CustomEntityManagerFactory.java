@@ -1,5 +1,9 @@
 package dev.wsollers.repository;
 
+import dev.wsollers.logging.LogFactory;
+
+import org.slf4j.Logger;
+
 import java.util.Properties;
 import java.util.Map;
 import java.util.HashMap;
@@ -8,7 +12,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+/**
+ * CustomEntityManagerFactory
+ *
+ * This class is responsible for creating an EntityManager
+ * Remeber that PostgreSQL is the database being used
+ * and it has a weird rule about quoted identifiers. 
+ * The persistence.xml file has a property to handle this.
+ *
+ * Also check out the QueryTester class for some examples of 
+ * Native Queries and how to quote the identifiers.
+ *
+ * Also Postgres is a little weird about case sensitivity.
+ */
 public class CustomEntityManagerFactory {
+
+  private static final Logger logger = LogFactory.getLogger(CustomEntityManagerFactory.class);
   
   public static final String CITIZEN_PERSISTENCE_UNIT = "citizenPersistenceUnit";
 
@@ -28,6 +47,7 @@ public class CustomEntityManagerFactory {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory(CITIZEN_PERSISTENCE_UNIT,properties);
     EntityManager em = emf.createEntityManager();
+    logger.info("EntityManager created");
     return em;
 
   }

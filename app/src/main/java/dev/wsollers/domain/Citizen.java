@@ -7,45 +7,55 @@ import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 
+import javax.persistence.Transient;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity(name="Citizen")
-@Table(name="CITIZEN", schema="TODO")
+@Table(name="CITIZEN", schema="CITIZENS")
 public class Citizen {
 
   @Id
   @JsonProperty("id")
-  @Column(name="ID", length=64, nullable=false, unique=true)
+  @Column(name="ID", length=36, nullable=false, unique=true)
   private String id;
 
   @Column(name="FIRST_NAME", length=64, nullable=false, unique=false)
   @JsonProperty("first_name")
   private String firstName;
 
+  @Column(name="LAST_NAME", length=64, nullable=false, unique=false)
   @JsonProperty("last_name")
   private String lastName;
 
+  @Column(name="SSN", length=64, nullable=false, unique=false)
   @JsonProperty("ssn")
   private String ssn;
 
+  @Column(name="AGE", length=64, nullable=false, unique=false)
   @JsonProperty("age")
   private int age;
 
-  @Enumerated(EnumType.STRING)
+  //@Enumerated(EnumType.STRING)
+  @Transient
   @JsonProperty("gender")
   private Gender gender;
 
-  @Enumerated(EnumType.STRING)
+  //@Enumerated(EnumType.STRING)
+  @Transient
   @JsonProperty("race")
   private Race race;
 
-  @Enumerated(EnumType.STRING)
+  //@Enumerated(EnumType.STRING)
+  @Transient
   @JsonProperty("ethnicity")
   private Ethnicity ethnicity;
 
+  @Transient
   @JsonProperty("phone_number")
   private String phoneNumber;
 
+  @Transient
   @JsonProperty("address")
   private Address address;
 
