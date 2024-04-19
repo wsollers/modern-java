@@ -25,6 +25,8 @@ get-docker-dependencies:
 	# docker database admin clienti
 	docker pull dpage/pgadmin4:8.5
 
+recycle-postgres: postgres-down postgres-run
+
 postgres-down:
 	cd compose-postgres; docker-compose down --volumes
 	
