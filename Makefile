@@ -8,7 +8,7 @@ bundle:
 	./gradlew build
 
 build:
-	./gradlew build
+	./gradlew build --warning-mode all
 
 clean:
 	./gradlew clean
