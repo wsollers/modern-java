@@ -13,6 +13,9 @@ build:
 clean:
 	./gradlew clean
 
+test:
+	./gradlew clean build test --info
+
 scan:
 	./gradlew build --scan
 
