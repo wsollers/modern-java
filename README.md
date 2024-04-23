@@ -8,3 +8,5 @@ riffs on modern Java
 [![OSSAR](https://github.com/wsollers/modern-java/actions/workflows/ossar.yml/badge.svg)](https://github.com/wsollers/modern-java/actions/workflows/ossar.yml)
 
 [![OSV-Scanner](https://github.com/wsollers/modern-java/actions/workflows/osv-scanner.yml/badge.svg)](https://github.com/wsollers/modern-java/actions/workflows/osv-scanner.yml)
+
+[![Scorecard supply-chain security](https://github.com/wsollers/modern-java/actions/workflows/scorecard.yml/badge.svg)](https://github.com/wsollers/modern-java/actions/workflows/scorecard.yml)
