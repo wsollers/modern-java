@@ -27,6 +27,8 @@ get-docker-dependencies:
 	docker pull postgres:16.2
 	# docker database admin clienti
 	docker pull dpage/pgadmin4:8.5
+	# docker oracle environment
+	docker pull amd64/eclipse-temurin
 
 recycle-postgres: postgres-down postgres-run
 
@@ -47,3 +49,10 @@ gradle-version:
 
 generate-javadoc:
 	./gradlew :app:javadoc
+
+push-image:
+	cd compose-postgres; docker-compose push --include-deps
+
+list-gradle-projects:
+	./gradlew -q projects
+	
