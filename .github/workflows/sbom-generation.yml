@@ -10,8 +10,13 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v4
-    - uses: actions/setup-java@v4
+    - name: Harden Runner
+      uses: step-security/harden-runner@f086349bfa2bd1361f7909c78558e816508cdc10 # v2.8.0
+      with:
+        egress-policy: audit
+
+    - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+    - uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9 # v4.2.1
       with:
         java-version: '17'
         distribution: 'temurin'
@@ -20,7 +25,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
       with:
           name: Package
     - uses: actions/checkout@v3
@@ -29,11 +34,11 @@ jobs:
         $RUNNER_TEMP/sbom-tool generate -b ./buildOutput -bc . -pn Test -pv 1.0.0 -ps MyCompany -nsb https://sbom.mycompany.com -V Verbose
 
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         path: buildOutput
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
       with:
          name: Package
          path: build/libs
