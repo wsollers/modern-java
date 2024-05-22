@@ -55,4 +55,11 @@ push-image:
 
 list-gradle-projects:
 	./gradlew -q projects
+
+check-dependencies:
+	./gradlew :app:dependencyCheckAnalyze
 	
+generate-sbom:
+	./gradlew cyclonedxBom
+	./gradlew cyclonedxBom -info
+

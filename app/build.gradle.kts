@@ -4,6 +4,7 @@
 
 plugins {
     id("buildlogic.java-application-conventions")
+    id("org.cyclonedx.bom") version ("1.8.2")
 }
 
 dependencies {
