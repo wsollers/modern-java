@@ -38,17 +38,18 @@ jobs:
         pwd
         ls
         chmod u+x ./gradlew
-        ./gradlew build
+        ./gradlew build -x test
     
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-          name: Package
+    #- name: Upload build artifacts
+    #  uses: actions/upload-artifact@v4
+    #  with:
+    #      name: Package
          
     - name: generate SBOM
       run: |
         curl -Lo $RUNNER_TEMP/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
         chmod +x $RUNNER_TEMP/sbom-tool
+        mkdir ./buildOutput
         $RUNNER_TEMP/sbom-tool generate -b ./buildOutput -bc . -pn Test -pv 1.0.0 -ps MyCompany -nsb https://sbom.mycompany.com -V Verbose
 
     - name: Upload a Build Artifact
@@ -56,10 +57,10 @@ jobs:
       with:
         path: buildOutput
         
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-         name: Package
+    #- name: Upload build artifacts
+    #  uses: actions/upload-artifact@v4
+    #  with:
+    #     name: Package
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
     # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
