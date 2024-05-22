@@ -40,10 +40,10 @@ jobs:
         chmod u+x ./gradlew
         ./gradlew build -x test
     
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-          name: Package
+    #- name: Upload build artifacts
+    #  uses: actions/upload-artifact@v4
+    #  with:
+    #      name: Package
          
     - name: generate SBOM
       run: |
