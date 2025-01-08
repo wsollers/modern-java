@@ -17,7 +17,7 @@ riffs on modern Java
 
 [![Dependency review](https://github.com/wsollers/modern-java/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/wsollers/modern-java/actions/workflows/dependency-review.yml)
 
-
+[![Microsoft Defender For Devops](https://github.com/wsollers/modern-java/actions/workflows/defender-for-devops.yml/badge.svg)](https://github.com/wsollers/modern-java/actions/workflows/defender-for-devops.yml)
 
 
 
