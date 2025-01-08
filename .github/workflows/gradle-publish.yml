@@ -12,6 +12,8 @@ on:
     types: [created]
 
 permissions:
+  security-events: write
+  actions: read
   contents: read
 
 jobs:
