@@ -4,7 +4,7 @@
 
 plugins {
     id("buildlogic.java-application-conventions")
-    id("org.cyclonedx.bom") version ("1.8.2")
+    id("org.cyclonedx.bom") version "3.1.0"
     id("org.owasp.dependencycheck") version "12.1.9"
 }
 
