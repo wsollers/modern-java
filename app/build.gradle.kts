@@ -5,6 +5,7 @@
 plugins {
     id("buildlogic.java-application-conventions")
     id("org.cyclonedx.bom") version ("1.8.2")
+    id("org.owasp.dependencycheck") version "12.1.9"
 }
 
 dependencies {
@@ -25,4 +26,6 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass = "dev.wsollers.application.ApplicationStart"
+
+    applicationDefaultJvmArgs = listOf("--enable-native-access=ALL-UNNAMED")
 }

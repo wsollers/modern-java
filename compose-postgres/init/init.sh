@@ -96,4 +96,33 @@ CREATE USER modern_java_read WITH PASSWORD 'modern_java_read';
 CREATE USER modern_java_write WITH PASSWORD 'modern_java_write';
 GRANT ALL PRIVILEGES ON DATABASE CITIZENS_DB TO modern_java_admin;
 
+CREATE SCHEMA "NORTHWINDS"
+    AUTHORIZATION postgres;
+
+COMMENT ON SCHEMA "NORTHWINDS"
+    IS 'SCHEMA FOR MODERN-JAVA';
+
+CREATE TABLESPACE "NORTHWINDS_TBS"
+  OWNER postgres
+  LOCATION '/data/postgres';
+
+ALTER TABLESPACE "NORTHWINDS_TBS"
+  OWNER TO postgres;
+
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+
+
 EOSQL
