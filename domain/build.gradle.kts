@@ -22,6 +22,9 @@ dependencies {
   // JUnit 5
   testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+  testImplementation("org.testcontainers:junit-jupiter")
+  testImplementation("org.testcontainers:postgresql")
+  testImplementation("org.flywaydb:flyway-core")
 }
 
 tasks.test {

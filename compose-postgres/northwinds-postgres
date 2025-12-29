@@ -1,0 +1,18 @@
+FROM postgres:18.1
+
+USER root
+
+RUN mkdir -p /var/lib/postgresql/tablespaces/northwinds \
+ && chown -R postgres:postgres /var/lib/postgresql/tablespaces \
+ && chmod 700 /var/lib/postgresql/tablespaces/northwinds
+
+USER postgres
+
+COPY --chmod=755 ./init/init.sh /docker-entrypoint-initdb.d/00-init.sh
+COPY ./init/northwinds_rebuild.sql /docker-entrypoint-initdb.d/10-northwinds_rebuild.sql
+COPY ./init/northwind_data.sql /docker-entrypoint-initdb.d/20-northwind_data.sql
+
+
+EXPOSE 5432
+
+
