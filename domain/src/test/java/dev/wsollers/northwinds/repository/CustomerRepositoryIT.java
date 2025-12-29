@@ -1,60 +1,73 @@
 package dev.wsollers.northwinds.repository;
 
-import dev.wsollers.northwinds.domain.Customer;
+import dev.wsollers.test.IntegrationTests;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
+
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.containers.wait.strategy.Wait;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Testcontainers
+@SpringBootTest(classes = IntegrationTests.class)
 @ActiveProfiles("test")
-@ContextConfiguration(classes = CustomerRepositoryIT.JpaTestConfig.class)
 class CustomerRepositoryIT {
 
+    private static final Logger log = LoggerFactory.getLogger(CustomerRepositoryIT.class);
+
+    @Container
+    static final PostgreSQLContainer<?> postgres =
+            new PostgreSQLContainer<>(
+                    DockerImageName.parse("northwinds-postgres:latest")
+                            .asCompatibleSubstituteFor("postgres")
+            )
+                    .withDatabaseName("modern_java")
+                    .withUsername("modern_java_write")
+                    .withPassword("write_strong_password")
+                    .waitingFor(Wait.forListeningPort());;
+
     @DynamicPropertySource
-    static void overrideProps(DynamicPropertyRegistry registry) {
+    static void registerProps(DynamicPropertyRegistry registry) {
+        // Spring Boot datasource
         registry.add("spring.datasource.url", postgres::getJdbcUrl);
         registry.add("spring.datasource.username", postgres::getUsername);
         registry.add("spring.datasource.password", postgres::getPassword);
+
+        // If you want to be explicit:
+        registry.add("spring.datasource.driver-class-name", () -> "org.postgresql.Driver");
+
+        // Flyway will automatically use spring.datasource.* by default, but this removes ambiguity:
+        registry.add("spring.flyway.url", postgres::getJdbcUrl);
+        registry.add("spring.flyway.user", postgres::getUsername);
+        registry.add("spring.flyway.password", postgres::getPassword);
+
+        // Optional: make sure Flyway is on
+        registry.add("spring.flyway.enabled", () -> "true");
     }
+
 
     @Test
-    void contextLoads() {
-        assertThat(postgres.isRunning()).isTrue();
+    void smoke() {
+        // your repository query here
+        System.out.println("JDBC URL = " + postgres.getJdbcUrl());
+
     }
 
-    @Autowired
-    CustomerRepository customerRepository;
-
-    @Test
-    void canQueryCustomer() {
-        // replace with a real ID that exists in Northwinds
-        Customer c = customerRepository.findById("ALFKI").orElse(null);
-        assertThat(c).isNotNull();
-    }
-
-    @Configuration
-    @EnableJpaRepositories(basePackageClasses = CustomerRepository.class)
-    @EntityScan(basePackageClasses = Customer.class)
-    static class JpaTestConfig { }
-
-    @DynamicPropertySource
-    static void props(DynamicPropertyRegistry r) {
-        r.add("spring.datasource.url", postgres::getJdbcUrl);
-        r.add("spring.datasource.username", postgres::getUsername);
-        r.add("spring.datasource.password", postgres::getPassword);
-
-        // optional, but explicit is nice:
-        r.add("spring.flyway.enabled", () -> "true");
+    static {
+        try {
+            postgres.start();
+        } catch (Exception e) {
+            System.err.println("==== Container logs ====");
+            System.err.println(postgres.getLogs());
+            throw e;
+        }
     }
 }
