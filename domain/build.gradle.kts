@@ -1,13 +1,14 @@
 plugins {
   `java-library`
+  id("io.spring.dependency-management")
 }
 
 dependencies {
   // Import Spring Boot BOM (this supplies versions)
   api(platform("org.springframework.boot:spring-boot-dependencies:3.2.12"))
+  // Repositories live here, so Spring Data JPA must be on MAIN compile classpath
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-  api("jakarta.persistence:jakarta.persistence-api")
-  api("jakarta.validation:jakarta.validation-api")
 
   api("com.fasterxml.jackson.core:jackson-annotations")
   api("com.fasterxml.jackson.core:jackson-databind")
@@ -15,6 +16,14 @@ dependencies {
   implementation(project(":utilities"))     // provides dev.wsollers.logging.LogFactory (if it's there)
   implementation("org.slf4j:slf4j-api")     // provides org.slf4j.Logger
 
+  // Postgres driver for test runtime
+  testRuntimeOnly("org.postgresql:postgresql")
 
+  // JUnit 5
+  testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+}
+
+tasks.test {
+  useJUnitPlatform()
 }
