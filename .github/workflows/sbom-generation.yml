@@ -3,6 +3,9 @@ name: Sample with SBOM generation
 on: 
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
 
