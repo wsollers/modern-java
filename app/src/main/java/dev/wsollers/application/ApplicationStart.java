@@ -1,15 +1,16 @@
 package dev.wsollers.application;
 
-import javax.persistence.EntityManager;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import jakarta.persistence.EntityManager;
 
 import org.slf4j.Logger;
 
-import dev.wsollers.repository.CustomEntityManagerFactory;
-import dev.wsollers.repository.CitizenRepository;
-import dev.wsollers.repository.CitizenJsonRepository;
 import dev.wsollers.logging.LogFactory;
-import dev.wsollers.repository.QueryTester;
 
+@SpringBootApplication(scanBasePackages = "dev.wsollers")
 public class ApplicationStart {
 
   private final static Logger logger = LogFactory.getLogger(ApplicationStart.class);
@@ -20,14 +21,7 @@ public class ApplicationStart {
 
     logger.info(APPLICATION_NAME + " starting...");
 
-    CitizenRepository citizenRepository = new CitizenJsonRepository();
-    citizenRepository.getCitizens();
-    LogFactory.testLogger();
-    EntityManager em = CustomEntityManagerFactory.getEntityManager();
-    QueryTester.testConnection();
-    QueryTester.testSqlQuery();
-    QueryTester.testQuery();
-    QueryTester.testFind();
+
   }
 
 }  

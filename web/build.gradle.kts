@@ -1,8 +1,14 @@
-plugins { id("buildlogic.java-library-conventions") }
+plugins {
+  `java-library`
+}
 
 dependencies {
-  // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-  implementation("org.slf4j:slf4j-simple:2.0.13")
-  // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-  implementation("org.slf4j:slf4j-api:2.0.13")
+  api(platform("org.springframework.boot:spring-boot-dependencies:3.2.12"))
+
+  api(project(":domain"))
+  implementation(project(":utilities"))
+
+  api("org.springframework.boot:spring-boot-starter-web")
+
+  testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

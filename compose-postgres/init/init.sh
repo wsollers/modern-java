@@ -1,128 +1,97 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+echo "==> NORTHWINDS init starting (first-time init only)"
 
-CREATE SCHEMA "CITIZENS"
-    AUTHORIZATION postgres;
+: "${POSTGRES_USER:?required}"
+: "${POSTGRES_DB:?required}"
 
-COMMENT ON SCHEMA "CITIZENS"
-    IS 'SCHEMA FOR MODERN-JAVA';
+: "${ADMIN_DB_USER:?required}"
+: "${ADMIN_DB_PASSWORD:?required}"
+: "${APP_DB_USER:?required}"
+: "${APP_DB_PASSWORD:?required}"
+: "${READ_DB_USER:?required}"
+: "${READ_DB_PASSWORD:?required}"
 
-CREATE TABLESPACE "CITIZENS_TBS"
-  OWNER postgres
-  LOCATION '/data/postgres';
+DDL_FILE="/docker-entrypoint-initdb.d/10-northwinds_rebuild.sql"
+DATA_FILE="/docker-entrypoint-initdb.d/20-northwind_data.sql"
 
-ALTER TABLESPACE "CITIZENS_TBS"
-  OWNER TO postgres;
+# ----------------------------------------------------------------------
+# 1) Prepare tablespace directories (OS-level)
+# ----------------------------------------------------------------------
+echo "==> Preparing tablespace directory: /var/lib/postgresql/tablespaces"
+mkdir -p /var/lib/postgresql/tablespaces/northwind_tables
+mkdir -p /var/lib/postgresql/tablespaces/northwind_indices
+chown -R postgres:postgres /var/lib/postgresql/tablespaces
+chmod 700 /var/lib/postgresql/tablespaces/northwind_tables
+chmod 700 /var/lib/postgresql/tablespaces/northwind_indices
 
--- Table: CITIZENS.CITIZEN
+# ----------------------------------------------------------------------
+# 2) Create roles FIRST (so tablespaces can be owned by ADMIN_DB_USER)
+# ----------------------------------------------------------------------
+echo "==> Creating roles (if missing)"
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "postgres" <<SQL
+DO \$\$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = '${ADMIN_DB_USER}') THEN
+    CREATE ROLE ${ADMIN_DB_USER} LOGIN PASSWORD '${ADMIN_DB_PASSWORD}';
+  END IF;
 
--- DROP TABLE IF EXISTS "CITIZENS"."CITIZEN";
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = '${APP_DB_USER}') THEN
+    CREATE ROLE ${APP_DB_USER} LOGIN PASSWORD '${APP_DB_PASSWORD}';
+  END IF;
 
-CREATE TABLE IF NOT EXISTS "CITIZENS"."CITIZEN"
-(
-    "ID" character varying(36) COLLATE pg_catalog."default" NOT NULL DEFAULT NULL::character varying,
-    "FIRST_NAME" character varying(64) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
-    "LAST_NAME" character varying(64) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
-    "SSN" character varying(11) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
-    "AGE" integer,
-    "CREATED_BY" character varying(64)[] COLLATE pg_catalog."default" NOT NULL DEFAULT NULL::character varying[],
-    "CREATED_DATE" timestamp with time zone NOT NULL,
-    "LAST_MODIFIED_BY" character varying(64)[] COLLATE pg_catalog."default" NOT NULL DEFAULT NULL::character varying[],
-    "LAST_MODIFIED_DATE" timestamp with time zone NOT NULL,
-    CONSTRAINT "CITIZEN_pkey" PRIMARY KEY ("ID")
-) TABLESPACE "CITIZENS_TBS";
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = '${READ_DB_USER}') THEN
+    CREATE ROLE ${READ_DB_USER} LOGIN PASSWORD '${READ_DB_PASSWORD}';
+  END IF;
+END
+\$\$;
+SQL
 
-ALTER TABLE IF EXISTS "CITIZENS"."CITIZEN"
-    OWNER to postgres;
+# ----------------------------------------------------------------------
+# 3) Create tablespaces SECOND (cannot be in DO; use psql \gexec)
+# ----------------------------------------------------------------------
+echo "==> Creating tablespaces (if missing)"
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "postgres" <<SQL
+SELECT 'CREATE TABLESPACE "NORTHWIND_TABLES" OWNER ${ADMIN_DB_USER} LOCATION ''/var/lib/postgresql/tablespaces/northwind_tables'';'
+WHERE NOT EXISTS (SELECT 1 FROM pg_tablespace WHERE spcname = 'NORTHWIND_TABLES')
+\gexec
 
-COMMENT ON TABLE "CITIZENS"."CITIZEN"
-    IS 'TABLE TO HOLD CITIZENS';
+SELECT 'CREATE TABLESPACE "NORTHWIND_INDICES" OWNER ${ADMIN_DB_USER} LOCATION ''/var/lib/postgresql/tablespaces/northwind_indices'';'
+WHERE NOT EXISTS (SELECT 1 FROM pg_tablespace WHERE spcname = 'NORTHWIND_INDICES')
+\gexec
+SQL
 
-COMMENT ON COLUMN "CITIZENS"."CITIZEN"."CREATED_BY"
-    IS 'USER/SERVICE THAT CREATED THE ENTRY';
+# ----------------------------------------------------------------------
+# 4) Ensure database is owned by ADMIN_DB_USER
+# ----------------------------------------------------------------------
+echo "==> Ensuring database owner is ${ADMIN_DB_USER}"
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "postgres" \
+  -c "ALTER DATABASE \"${POSTGRES_DB}\" OWNER TO ${ADMIN_DB_USER};"
 
-COMMENT ON COLUMN "CITIZENS"."CITIZEN"."CREATED_DATE"
-    IS 'DATE TIME RECORD CREATED';
+# ----------------------------------------------------------------------
+# 5) Run DDL as modern_java_admin
+# ----------------------------------------------------------------------
+echo "==> Running DDL as ${ADMIN_DB_USER} in db ${POSTGRES_DB}"
+PGPASSWORD="${ADMIN_DB_PASSWORD}" psql -v ON_ERROR_STOP=1 \
+  --username "${ADMIN_DB_USER}" \
+  --dbname "${POSTGRES_DB}" \
+  -f "${DDL_FILE}"
 
-COMMENT ON COLUMN "CITIZENS"."CITIZEN"."LAST_MODIFIED_BY"
-    IS 'USER/SERVICE THAT LAST UPDATED THE ENTRY';
+echo "==> DDL completed successfully."
 
-COMMENT ON COLUMN "CITIZENS"."CITIZEN"."LAST_MODIFIED_DATE"
-    IS 'DATE TIME RECORD CREATED';
+# ----------------------------------------------------------------------
+# 6) Load seed data (also as admin)
+# ----------------------------------------------------------------------
+if [[ -f "${DATA_FILE}" ]]; then
+  echo "==> Loading seed data: ${DATA_FILE}"
+  PGPASSWORD="${ADMIN_DB_PASSWORD}" psql -v ON_ERROR_STOP=1 \
+    --username "${ADMIN_DB_USER}" \
+    --dbname "${POSTGRES_DB}" \
+    -f "${DATA_FILE}"
+  echo "==> Seed data loaded successfully."
+else
+  echo "==> Seed data skipped: ${DATA_FILE} not found."
+fi
 
-CREATE TABLE IF NOT EXISTS "CITIZENS"."ADDRESS"
-(
-    "ID" character varying(36) COLLATE pg_catalog."default" NOT NULL DEFAULT NULL::character varying,
-    "STREET_ADDRESS" character varying(64) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
-    "CITY" character varying(64) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
-    "ZIP_CODE" character varying(12) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
-    "CREATED_BY" character varying(64)[] COLLATE pg_catalog."default" NOT NULL DEFAULT NULL::character varying[],
-    "CREATED_DATE" timestamp with time zone NOT NULL,
-    "LAST_MODIFIED_BY" character varying(64)[] COLLATE pg_catalog."default" NOT NULL DEFAULT NULL::character varying[],
-    "LAST_MODIFIED_DATE" timestamp with time zone NOT NULL,
-    CONSTRAINT "ADDRESS_pkey" PRIMARY KEY ("ID")
-) TABLESPACE "CITIZENS_TBS";
-
-
-ALTER TABLE IF EXISTS "CITIZENS"."ADDRESS"
-    OWNER to postgres;
-
-COMMENT ON TABLE "CITIZENS"."ADDRESS"
-    IS 'ADDRESS TABLE';
-
-COMMENT ON COLUMN "CITIZENS"."ADDRESS"."CREATED_BY"
-    IS 'USER/SERVICE THAT CREATED THE ENTRY';
-
-COMMENT ON COLUMN "CITIZENS"."ADDRESS"."CREATED_DATE"
-    IS 'DATE TIME RECORD CREATED';
-
-COMMENT ON COLUMN "CITIZENS"."ADDRESS"."LAST_MODIFIED_BY"
-    IS 'USER/SERVICE THAT LAST UPDATED THE ENTRY';
-
-COMMENT ON COLUMN "CITIZENS"."ADDRESS"."LAST_MODIFIED_DATE"
-    IS 'DATE TIME RECORD CREATED';
-
-
-
-REVOKE CREATE ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON DATABASE CITIZENS_DB FROM PUBLIC;
-CREATE ROLE READONLY;
-GRANT CONNECT ON DATABASE CITIZENS_DB TO readonly;
-GRANT USAGE ON SCHEMA myschema TO readonly;
-CREATE USER modern_java_admin WITH PASSWORD 'modern_java_admin';
-CREATE USER modern_java_read WITH PASSWORD 'modern_java_read';
-CREATE USER modern_java_write WITH PASSWORD 'modern_java_write';
-GRANT ALL PRIVILEGES ON DATABASE CITIZENS_DB TO modern_java_admin;
-
-CREATE SCHEMA "NORTHWINDS"
-    AUTHORIZATION postgres;
-
-COMMENT ON SCHEMA "NORTHWINDS"
-    IS 'SCHEMA FOR MODERN-JAVA';
-
-CREATE TABLESPACE "NORTHWINDS_TBS"
-  OWNER postgres
-  LOCATION '/data/postgres';
-
-ALTER TABLESPACE "NORTHWINDS_TBS"
-  OWNER TO postgres;
-
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
-
-
-SET default_tablespace = '';
-
-SET default_with_oids = false;
-
-
-
-EOSQL
+echo "==> NORTHWINDS init finished."

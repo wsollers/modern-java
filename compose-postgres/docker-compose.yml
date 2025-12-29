@@ -1,34 +1,59 @@
----
-version: '3.5'
+version: "3.9"
+
 services:
   postgres:
     container_name: postgres
-    image: postgres:16.2
+    image: postgres:18.1
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
-      PGDATA: /data/postgres
+
+      ADMIN_DB_USER: ${ADMIN_DB_USER}
+      ADMIN_DB_PASSWORD: ${ADMIN_DB_PASSWORD}
+
+      APP_DB_USER: ${APP_DB_USER}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD}i can query them
+
+      READ_DB_USER: ${READ_DB_USER}
+      READ_DB_PASSWORD: ${READ_DB_PASSWORD}
+
     volumes:
-      - postgres:/data/postgres
-      - ./init/init.sh:/docker-entrypoint-initdb.d/init-database.sh
-    ports: [5432:5432]
-    networks: [postgres]
+      # Postgres 18+ wants a single mount here:
+      - postgres_root:/var/lib/postgresql
+
+      # init scripts (run once on fresh volume)
+      - ./init/init.sh:/docker-entrypoint-initdb.d/00-init.sh:ro
+      - ./init/northwinds_rebuild.sql:/docker-entrypoint-initdb.d/10-northwinds_rebuild.sql:ro
+      - ./init/northwind_data.sql:/docker-entrypoint-initdb.d/20-northwind_data.sql:ro
+
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
     restart: unless-stopped
+
   pgadmin:
     container_name: pgadmin_container
-    image: dpage/pgadmin4:8.5
+    image: dpage/pgadmin4:9.11
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    volumes: [pgadmin:/var/lib/pgadmin]
-    ports: ['${PGADMIN_PORT:-5050}:80']
-    networks: [postgres]
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - postgres
+    depends_on:
+      - postgres
     restart: unless-stopped
+
 networks:
   postgres:
     driver: bridge
+
 volumes:
-  postgres:
-  pgadmin:
+  postgres_root:
+  pgadmin_data:

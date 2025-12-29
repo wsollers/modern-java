@@ -2,6 +2,6 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/compose-postgres/init/northwind_data.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/compose-postgres/init/northwind_ddl.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/compose-postgres/init/northwinds_rebuild.sql" dialect="GenericSQL" />
   </component>
 </project>
