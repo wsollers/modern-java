@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./northwinds-postgres
+          file: ./compose-postgres/northwinds-postgres
           push: true
           tags: |
             ghcr.io/wsollers/northwinds-postgres:latest
