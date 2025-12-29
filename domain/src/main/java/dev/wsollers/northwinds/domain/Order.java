@@ -1,11 +1,16 @@
 package dev.wsollers.northwinds.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "orders", schema = "northwinds")
 public class Order {
@@ -61,7 +66,5 @@ public class Order {
 
     public Order() {}
 
-    public Short getId() {
-        return id;
-    }
+
 }

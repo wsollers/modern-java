@@ -1,7 +1,11 @@
 package dev.wsollers.northwinds.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "employee_territories", schema = "northwinds")
 public class EmployeeTerritory {

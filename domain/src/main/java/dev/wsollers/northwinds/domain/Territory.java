@@ -1,9 +1,14 @@
 package dev.wsollers.northwinds.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "territories", schema = "northwinds")
 public class Territory {
@@ -24,7 +29,4 @@ public class Territory {
 
     public Territory() {}
 
-    public String getId() {
-        return id;
-    }
 }

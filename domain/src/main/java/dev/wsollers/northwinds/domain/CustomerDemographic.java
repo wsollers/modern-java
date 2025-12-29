@@ -1,9 +1,14 @@
 package dev.wsollers.northwinds.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "customer_demographics", schema = "northwinds")
 public class CustomerDemographic {
@@ -21,12 +26,5 @@ public class CustomerDemographic {
 
     public CustomerDemographic() {}
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-
-    public Set<CustomerCustomerDemo> getCustomerLinks() { return customerLinks; }
-    public void setCustomerLinks(Set<CustomerCustomerDemo> customerLinks) { this.customerLinks = customerLinks; }
 }

@@ -9,8 +9,10 @@ import jakarta.persistence.EntityManager;
 import org.slf4j.Logger;
 
 import dev.wsollers.logging.LogFactory;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = "dev.wsollers")
+@EnableJpaRepositories(basePackages = "dev.wsollers.northwinds.repository")
 public class ApplicationStart {
 
   private final static Logger logger = LogFactory.getLogger(ApplicationStart.class);

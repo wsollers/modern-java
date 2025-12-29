@@ -1,10 +1,12 @@
-package dev.wsollers.northwinds;
+package dev.wsollers;
 
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@Configuration
+@SpringBootConfiguration
+@EnableAutoConfiguration
 @EntityScan(basePackages = "dev.wsollers.northwinds.domain")
 @EnableJpaRepositories(basePackages = "dev.wsollers.northwinds.repository")
-public class DomainJpaTestConfig {}
+public class IntegrationTests {}

@@ -1,10 +1,15 @@
 package dev.wsollers.northwinds.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "products", schema = "northwinds")
 public class Product {
@@ -47,6 +52,4 @@ public class Product {
 
     public Product() {}
 
-    public Short getId() { return id; }
-    public void setId(Short id) { this.id = id; }
 }

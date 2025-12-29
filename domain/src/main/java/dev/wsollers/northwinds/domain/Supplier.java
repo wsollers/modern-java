@@ -1,9 +1,14 @@
 package dev.wsollers.northwinds.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "suppliers", schema = "northwinds")
 public class Supplier {
@@ -51,9 +56,4 @@ public class Supplier {
 
     public Supplier() {}
 
-    public Short getId() { return id; }
-    public void setId(Short id) { this.id = id; }
-
-    public String getCompanyName() { return companyName; }
-    public void setCompanyName(String companyName) { this.companyName = companyName; }
 }

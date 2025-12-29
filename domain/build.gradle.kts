@@ -1,6 +1,7 @@
 plugins {
   `java-library`
   id("io.spring.dependency-management")
+  id("io.freefair.lombok") version "8.11" // or latest you prefer
 }
 
 dependencies {
@@ -24,7 +25,9 @@ dependencies {
 
   testImplementation("org.testcontainers:junit-jupiter")
   testImplementation("org.testcontainers:postgresql")
-  testImplementation("org.flywaydb:flyway-core")
+  //testImplementation("org.flywaydb:flyway-core")
+
+
 }
 
 tasks.test {
