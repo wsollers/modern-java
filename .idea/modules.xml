@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/modern-java.domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/modern-java.domain.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/modern-java.domain.test.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/modern-java.domain.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/test-support/modern-java.test-support.testFixtures.iml" filepath="$PROJECT_DIR$/.idea/modules/test-support/modern-java.test-support.testFixtures.iml" />
     </modules>
   </component>
 </project>

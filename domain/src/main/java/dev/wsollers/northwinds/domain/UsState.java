@@ -1,13 +1,16 @@
 package dev.wsollers.northwinds.domain;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 
 @Getter
 @Setter
 @Entity
 @Table(name = "us_states", schema = "northwinds")
+@JacksonXmlRootElement(localName = "UsState")
 public class UsState {
 
     @Id

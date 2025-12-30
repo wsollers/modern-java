@@ -22,7 +22,7 @@ public class ApplicationStart {
   public static void main(String[] args) {
 
     logger.info(APPLICATION_NAME + " starting...");
-
+    SpringApplication.run(ApplicationStart.class, args);
 
   }
 

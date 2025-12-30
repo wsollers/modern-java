@@ -12,4 +12,4 @@ plugins {
 }
 
 rootProject.name = "modern-java"
-include("app", "web", "domain", "utilities")
+include("app", "web", "domain", "utilities", "test-support")

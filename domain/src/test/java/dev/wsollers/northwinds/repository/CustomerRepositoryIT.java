@@ -50,7 +50,7 @@ class CustomerRepositoryIT extends BaseRepositoryIT {
     @AfterAll
     static void dumpLogs() {
         System.out.println("==== Container logs ====");
-        System.out.println(postgres.getLogs());
+        System.out.println(getInstance().getLogs());
     }
 
     @Test

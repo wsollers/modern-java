@@ -64,4 +64,12 @@ class UsStateRepositoryIT extends BaseRepositoryIT {
         assertThat(stateNames).contains("Alabama", "Alaska", "Arizona", "Arkansas");
         assertThat(stateNames.size()).isEqualTo(4);
     }
+
+    @Test
+    void fetchSAllStates() {
+        List<UsState> states = usStateRepository.findAll();
+
+        assertThat(states).isNotEmpty();
+        assertThat(states.size() == 51).isTrue();
+    }
 }

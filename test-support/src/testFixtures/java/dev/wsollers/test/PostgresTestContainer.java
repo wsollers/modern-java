@@ -1,11 +1,15 @@
-package dev.wsollers.northwinds.repository;
+package dev.wsollers.test;
 
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
 
-public class PostgresTestContainer {
+public abstract class PostgresTestContainer {
 
+    @Container
     private static final PostgreSQLContainer<?> INSTANCE;
 
     static {
@@ -47,5 +51,26 @@ public class PostgresTestContainer {
 
     public static PostgreSQLContainer<?> getInstance() {
         return INSTANCE;
+    }
+
+    @DynamicPropertySource
+    static void registerProps(DynamicPropertyRegistry registry) {
+        // Spring Boot datasource
+        PostgreSQLContainer<?> postgres = PostgresTestContainer.getInstance();
+
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+
+        registry.add("spring.sql.init.mode", () -> "always");
+        registry.add("spring.jpa.defer-datasource-initialization", () -> "true");
+
+        // If you want to be explicit:
+        registry.add("spring.datasource.driver-class-name", () -> "org.postgresql.Driver");
+
+
+
+        // Optional: make sure Flyway is on
+        //registry.add("spring.flyway.enabled", () -> "true");
     }
 }

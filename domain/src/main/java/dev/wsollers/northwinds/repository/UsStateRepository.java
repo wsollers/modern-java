@@ -10,4 +10,6 @@ public interface UsStateRepository extends JpaRepository<UsState, Long> {
     Optional<UsState> findByStateName(String stateName);
 
     List<UsState> findByStateNameStartingWith(String firstCharacter);
+
+
 }

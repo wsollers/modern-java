@@ -3,14 +3,32 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.36/5a30490a6e14977d97d9c73c924c1f1b5311ea95/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="modern-java.domain.main" />
+        <module name="modern-java.test-support.main" />
+        <module name="modern-java.test-support.test" />
+        <module name="modern-java.domain.test" />
+        <module name="modern-java.test-support.testFixtures" />
+      </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="21" />
+    <bytecodeTargetLevel target="23" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="modern-java.app" options="-parameters" />
       <module name="modern-java.app.main" options="-parameters" />
       <module name="modern-java.app.test" options="-parameters" />
+      <module name="modern-java.domain" options="-Xlint:-processing" />
+      <module name="modern-java.domain.main" options="-Xlint:-processing" />
+      <module name="modern-java.domain.test" options="-Xlint:-processing" />
+      <module name="modern-java.test-support" options="-Xlint:-processing" />
+      <module name="modern-java.test-support.main" options="-Xlint:-processing" />
+      <module name="modern-java.test-support.test" options="-Xlint:-processing" />
+      <module name="modern-java.test-support.testFixtures" options="-Xlint:-processing" />
     </option>
   </component>
 </project>

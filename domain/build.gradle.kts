@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
   // Import Spring Boot BOM (this supplies versions)
-  api(platform("org.springframework.boot:spring-boot-dependencies:3.2.12"))
+  api(platform("org.springframework.boot:spring-boot-dependencies"))
   // Repositories live here, so Spring Data JPA must be on MAIN compile classpath
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
@@ -26,8 +26,8 @@ dependencies {
   testImplementation("org.testcontainers:junit-jupiter")
   testImplementation("org.testcontainers:postgresql")
   //testImplementation("org.flywaydb:flyway-core")
-
-
+  testImplementation(testFixtures(project(":test-support")))
+  implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 }
 
 tasks.test {
