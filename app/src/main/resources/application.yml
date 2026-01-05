@@ -1,14 +1,23 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/northwinds
+    url: jdbc:postgresql://localhost:5432/modern_java
     username: modern_java_write
-    password: ${DB_PASSWORD}
+    password: write_strong_password
 
   jpa:
     hibernate:
       ddl-auto: none
+    show-sql: true
     properties:
       hibernate:
         default_schema: northwinds
         format_sql: true
-        show_sql: true
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: always
+    include-exception: false
+    whitelabel:
+      enabled: false
