@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/modern_java
     username: modern_java_write
-    password: write_strong_password
+    # do NOT set password here; let Key Vault supply it
 
   jpa:
     hibernate:
@@ -12,6 +12,14 @@ spring:
       hibernate:
         default_schema: northwinds
         format_sql: true
+    open-in-view: false
+
+  cloud:
+    azure:
+      keyvault:
+        secret:
+          property-sources:
+            - endpoint: https://kv-wsollers-dev.vault.azure.net/
 
 server:
   error:
@@ -21,3 +29,9 @@ server:
     include-exception: false
     whitelabel:
       enabled: false
+
+logging:
+  level:
+    com.azure.identity: DEBUG
+    com.azure.security.keyvault: DEBUG
+    com.azure.spring: DEBUG

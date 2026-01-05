@@ -1,13 +1,14 @@
 // build.gradle.kts (ROOT)
-allprojects {
-    repositories {
-        mavenCentral()
-    }
-}
+import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
+import org.gradle.api.tasks.testing.Test
+import org.gradle.api.tasks.compile.JavaCompile
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.gradle.api.plugins.JavaPluginExtension
 
 plugins {
     id("org.springframework.boot") version "3.4.1" apply false
     id("io.spring.dependency-management") version "1.1.6" apply false
+
 }
 
 allprojects {
@@ -20,25 +21,29 @@ allprojects {
 }
 
 subprojects {
-    // Apply Java plugin to *all* modules so `implementation(...)` exists everywhere.
+    // Apply Java + dependency management everywhere
     apply(plugin = "java-library")
-    // Import Spring Boot BOM everywhere so you can omit versions.
     apply(plugin = "io.spring.dependency-management")
 
-    plugins.withId("java") {
-        dependencies {
-            "testImplementation"(platform("org.junit:junit-bom:5.11.4"))
-            "testImplementation"("org.junit.jupiter:junit-jupiter")
-            "testRuntimeOnly"("org.junit.platform:junit-platform-launcher")
+    // ✅ Import BOMs so module deps can omit versions
+    configure<DependencyManagementExtension> {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:3.4.1")
+            mavenBom("com.azure.spring:spring-cloud-azure-dependencies:5.23.0")
         }
-        tasks.withType<Test>().configureEach { useJUnitPlatform() }
     }
 
-    tasks.withType(Test::class.java).configureEach {
-            useJUnitPlatform()
+    dependencies {
+        "testImplementation"(platform("org.junit:junit-bom:5.11.4"))
+        "testImplementation"("org.junit.jupiter:junit-jupiter")
+        "testRuntimeOnly"("org.junit.platform:junit-platform-launcher")
     }
 
-    tasks.withType(JavaCompile::class.java).configureEach {
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+    }
+
+    tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
     }
 
@@ -48,4 +53,3 @@ subprojects {
         }
     }
 }
-

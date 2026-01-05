@@ -21,9 +21,10 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     // JUnit 5
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.4")
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+    implementation("com.azure.spring:spring-cloud-azure-starter-keyvault-secrets")
 }
 
 application {
