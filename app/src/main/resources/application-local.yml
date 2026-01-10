@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/modern_java
+    username: modern_java_write
+    # do NOT set password here; let Key Vault supply it
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: northwinds
+        format_sql: true
+    open-in-view: false
+
+  cloud:
+    azure:
+      keyvault:
+        secret:
+          property-sources:
+            - endpoint: https://kv-northwinds-dev.vault.azure.net/
