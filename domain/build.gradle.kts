@@ -6,6 +6,7 @@ plugins {
 dependencies {
   // Import BOMs internally (NOT exported)
   implementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.1"))
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation(platform("org.testcontainers:testcontainers-bom:1.20.4"))
 
   // Jackson (versionless)
