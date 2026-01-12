@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Run DevSkim scanner
-        uses: microsoft/DevSkim-Action@914fa647b406c387000300b2f09bb28691be2b6d
+        uses: microsoft/DevSkim-Action@v1
 
       - name: Upload DevSkim scan results to GitHub Security tab
         if: github.event_name != 'pull_request'
