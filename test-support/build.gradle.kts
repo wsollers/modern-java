@@ -1,20 +1,19 @@
 plugins {
     `java-library`
     `java-test-fixtures`
-    id("io.spring.dependency-management")
     id("io.freefair.lombok") version "8.11"
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.boot:spring-boot-dependencies:3.4.1")
-        mavenBom("org.testcontainers:testcontainers-bom:1.20.4")
-    }
-}
-
 dependencies {
+    // Main BOMs (for main + test)
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.1"))
+    implementation(platform("org.testcontainers:testcontainers-bom:1.20.4"))
+
+    // Test fixtures BOMs (required!)
+    testFixturesImplementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.1"))
+    testFixturesImplementation(platform("org.testcontainers:testcontainers-bom:1.20.4"))
+
     // Main dependencies
-    api(platform("org.springframework.boot:spring-boot-dependencies:3.4.1"))
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation(project(":utilities"))
     implementation("org.slf4j:slf4j-api")
@@ -24,12 +23,11 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
 
-    // Test fixtures dependencies - THIS IS WHAT'S MISSING
+    // Test fixtures dependencies
     testFixturesApi("org.springframework:spring-test")
     testFixturesApi("org.testcontainers:junit-jupiter")
     testFixturesApi("org.testcontainers:postgresql")
     testFixturesApi("org.slf4j:slf4j-api")
-
     testFixturesApi("com.fasterxml.jackson.core:jackson-annotations")
     testFixturesApi("com.fasterxml.jackson.core:jackson-databind")
 }
