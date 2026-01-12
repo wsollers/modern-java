@@ -6,13 +6,11 @@ plugins {
 dependencies {
   // Import BOMs internally (NOT exported)
   implementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.1"))
-  // JPA API
-  implementation("jakarta.persistence:jakarta.persistence-api")
-
-  // Spring Data JPA core (no autoconfigure)
-  implementation("org.springframework.data:spring-data-jpa")
-
   implementation(platform("org.testcontainers:testcontainers-bom:1.20.4"))
+
+  // JPA + Spring Data JPA (NO Spring Boot starter here)
+  implementation("jakarta.persistence:jakarta.persistence-api")
+  implementation("org.springframework.data:spring-data-jpa")
 
   // Jackson (versionless)
   api("com.fasterxml.jackson.core:jackson-annotations")
