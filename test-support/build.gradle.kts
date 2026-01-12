@@ -9,12 +9,13 @@ dependencies {
     implementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.1"))
     implementation(platform("org.testcontainers:testcontainers-bom:1.20.4"))
 
-    // Test fixtures BOMs (required!)
+    // Test fixtures BOMs
     testFixturesImplementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.1"))
     testFixturesImplementation(platform("org.testcontainers:testcontainers-bom:1.20.4"))
 
-    // Main dependencies
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    // Main dependencies — FIXED
+    implementation("jakarta.persistence:jakarta.persistence-api")
+    implementation("org.springframework.data:spring-data-jpa")
     implementation(project(":utilities"))
     implementation("org.slf4j:slf4j-api")
 
