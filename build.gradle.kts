@@ -6,7 +6,7 @@ import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.api.plugins.JavaPluginExtension
 
 plugins {
-    id("org.springframework.boot") version "3.4.1" apply false
+    id("org.springframework.boot") version "4.0.1" apply false
     id("io.spring.dependency-management") version "1.1.6" apply false
 
 }
@@ -28,7 +28,7 @@ subprojects {
     // ✅ Import BOMs so module deps can omit versions
     configure<DependencyManagementExtension> {
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:3.4.1")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:4.0.1")
             mavenBom("com.azure.spring:spring-cloud-azure-dependencies:5.23.0")
         }
     }
