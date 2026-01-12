@@ -27,4 +27,10 @@ dependencies {
 
   // Jackson XML
   implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
+
+  testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+  // Boot 4: TestRestTemplate lives here
+  testImplementation("org.springframework.boot:spring-boot-resttestclient")
+  testImplementation("org.springframework.boot:spring-boot-restclient")
 }

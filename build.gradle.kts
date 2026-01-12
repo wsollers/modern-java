@@ -1,6 +1,9 @@
 // build.gradle.kts (ROOT)
 
-
+plugins {
+    id("org.springframework.boot") version "4.0.1" apply false
+    id("io.spring.dependency-management") version "1.1.6" apply false
+}
 
 allprojects {
     group = "dev.wsollers"
@@ -11,34 +14,35 @@ allprojects {
     }
 }
 
-plugins {
-    id("org.springframework.boot") version "4.0.1" apply false
-    id("io.spring.dependency-management") version "1.1.6" apply false
-}
-
 subprojects {
-    // Apply Java + dependency management everywhere
-    apply(plugin = "java-library")
 
-
-
-    dependencies {
-        "testImplementation"(platform("org.junit:junit-bom:5.11.4"))
-        "testImplementation"("org.junit.jupiter:junit-jupiter")
-        "testRuntimeOnly"("org.junit.platform:junit-platform-launcher")
+    // Apply the right Java plugin depending on module type
+    if (name == "app") {
+        apply(plugin = "java") // app uses Boot + application plugin in its own build.gradle.kts
+    } else {
+        apply(plugin = "java-library")
     }
 
+    // Java 23 toolchain everywhere Java is applied
+    plugins.withId("java") {
+        extensions.configure<JavaPluginExtension> {
+            toolchain {
+                languageVersion.set(JavaLanguageVersion.of(23))
+            }
+        }
+    }
+
+    // JUnit Platform everywhere tests exist
     tasks.withType<Test>().configureEach {
         useJUnitPlatform()
     }
 
-    tasks.withType<JavaCompile>().configureEach {
-        options.encoding = "UTF-8"
+    // Ensure Gradle test executor can start the JUnit Platform
+    dependencies {
+        add("testRuntimeOnly", "org.junit.platform:junit-platform-launcher")
     }
 
-    configure<JavaPluginExtension> {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(23))
-        }
+    tasks.withType<JavaCompile>().configureEach {
+        options.encoding = "UTF-8"
     }
 }

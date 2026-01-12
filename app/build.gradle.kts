@@ -1,13 +1,13 @@
 plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
+    java
     application
 }
 
 dependencies {
-    // Import BOMs internally (NOT exported)
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.1"))
-    implementation(platform("com.azure.spring:spring-cloud-azure-dependencies:5.23.0"))
+    // Only Azure BOM — Boot BOM is already applied by the Boot plugin
+    //implementation(platform("com.azure.spring:spring-cloud-azure-dependencies:7.0.0-beta.1"))
 
     implementation(project(":domain"))
     implementation(project(":utilities"))
@@ -23,8 +23,10 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    // Azure Key Vault (versionless, now resolved via Azure BOM)
-    implementation("com.azure.spring:spring-cloud-azure-starter-keyvault-secrets")
+    //implementation("com.azure.spring:spring-cloud-azure-starter-keyvault-secrets")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
 }
 
 application {

@@ -1,19 +1,13 @@
 package dev.wsollers.northwinds.repository;
 
-import dev.wsollers.northwinds.domain.UsState;
 import dev.wsollers.IntegrationTests;
-import jakarta.persistence.EntityManager;
+import dev.wsollers.northwinds.domain.UsState;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,24 +20,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 class UsStateRepositoryIT extends BaseRepositoryIT {
 
-    private static final Logger log = LoggerFactory.getLogger(UsStateRepositoryIT.class);
-
-    @Autowired
-    EntityManager em;
-
     @Autowired
     UsStateRepository usStateRepository;
 
     @Test
     void fetchMaryland_andVerifyUniquenessAndAbbreviation() {
-        // when
         Optional<UsState> result = usStateRepository.findByStateName("Maryland");
-
-        assertThat(result.isPresent()).isTrue();
-
-        UsState maryland = result.get();
-        assertThat(maryland.getStateAbbr())
-                .isEqualTo("MD");
+        assertThat(result).isPresent();
+        assertThat(result.get().getStateAbbr()).isEqualTo("MD");
     }
 
     @Test
@@ -55,21 +39,15 @@ class UsStateRepositoryIT extends BaseRepositoryIT {
                 assertThat(state.getStateName()).startsWith("A")
         );
 
-        // Should include Alabama, Alaska, Arizona, Arkansas
-        assertThat(states).hasSizeGreaterThanOrEqualTo(4);
-
-        List<String> stateNames = states.stream()
-                .map(UsState::getStateName)
-                .toList();
+        List<String> stateNames = states.stream().map(UsState::getStateName).toList();
         assertThat(stateNames).contains("Alabama", "Alaska", "Arizona", "Arkansas");
-        assertThat(stateNames.size()).isEqualTo(4);
+        assertThat(states).hasSizeGreaterThanOrEqualTo(4);
     }
 
     @Test
-    void fetchSAllStates() {
+    void fetchAllStates() {
         List<UsState> states = usStateRepository.findAll();
-
         assertThat(states).isNotEmpty();
-        assertThat(states.size() == 51).isTrue();
+        assertThat(states).hasSize(51);
     }
 }

@@ -4,34 +4,35 @@ plugins {
 }
 
 dependencies {
-  // Import BOMs internally (NOT exported)
   implementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.1"))
-  implementation(platform("org.testcontainers:testcontainers-bom:1.20.4"))
+  testImplementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.1"))
 
-  // JPA + Spring Data JPA (NO Spring Boot starter here)
+  implementation(platform("org.testcontainers:testcontainers-bom:1.20.4"))
+  testImplementation(platform("org.testcontainers:testcontainers-bom:1.20.4"))
+
   implementation("jakarta.persistence:jakarta.persistence-api")
   implementation("org.springframework.data:spring-data-jpa")
 
-  // Jackson (versionless)
-  api("com.fasterxml.jackson.core:jackson-annotations")
-  api("com.fasterxml.jackson.core:jackson-databind")
+  implementation("com.fasterxml.jackson.core:jackson-annotations")
+  implementation("com.fasterxml.jackson.core:jackson-databind")
   implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 
-  // Internal modules
   implementation(project(":utilities"))
   implementation("org.slf4j:slf4j-api")
 
-  // Testcontainers (versionless)
+  // Tests
+  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+  // ✅ Boot 4 test-slice modules (this is the real fix)
+  testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-jdbc-test")
+
   testImplementation("org.testcontainers:junit-jupiter")
   testImplementation("org.testcontainers:postgresql")
-
-  // Postgres driver for tests
   testRuntimeOnly("org.postgresql:postgresql")
 
-  // Test fixtures
   testImplementation(testFixtures(project(":test-support")))
 }
 
-tasks.test {
-  useJUnitPlatform()
-}
+tasks.test { useJUnitPlatform() }
