@@ -3,6 +3,7 @@
 plugins {
     id("org.springframework.boot") version "4.0.1" apply false
     id("io.spring.dependency-management") version "1.1.6" apply false
+    id("org.cyclonedx.bom") version "2.1.0"
 }
 
 allprojects {
