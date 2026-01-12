@@ -6,7 +6,12 @@ plugins {
 dependencies {
   // Import BOMs internally (NOT exported)
   implementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.1"))
-  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+  // JPA API
+  implementation("jakarta.persistence:jakarta.persistence-api")
+
+  // Spring Data JPA core (no autoconfigure)
+  implementation("org.springframework.data:spring-data-jpa")
+
   implementation(platform("org.testcontainers:testcontainers-bom:1.20.4"))
 
   // Jackson (versionless)
