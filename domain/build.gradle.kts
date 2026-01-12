@@ -5,8 +5,7 @@ plugins {
 }
 
 dependencies {
-  // Import Spring Boot BOM (this supplies versions)
-  api(platform("org.springframework.boot:spring-boot-dependencies"))
+
   // Repositories live here, so Spring Data JPA must be on MAIN compile classpath
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 

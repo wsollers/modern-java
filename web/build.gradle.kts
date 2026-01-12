@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-  api(platform("org.springframework.boot:spring-boot-dependencies"))
+
 
   api(project(":domain"))
   implementation(project(":utilities"))
